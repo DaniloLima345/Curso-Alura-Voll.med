@@ -17,7 +17,7 @@ import med.voll.api.paciente.PacienteRepository;
 public class PacienteController {
 	
 	@Autowired
-	PacienteRepository repository;
+	private PacienteRepository repository;
 	
 	@PostMapping
 	@Transactional
