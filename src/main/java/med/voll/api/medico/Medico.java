@@ -18,26 +18,27 @@ import med.voll.api.endereco.Endereco;
 @Table(name = "medicos")
 @Entity(name = "Medico")
 @Getter
-@NoArgsConstructor //cria o construtor padrão
-@AllArgsConstructor //cria o construtor com os atributos
+@NoArgsConstructor // cria o construtor padrão
+@AllArgsConstructor // cria o construtor com os atributos
 @EqualsAndHashCode(of = "id")
 public class Medico {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
+
 	private Long id;
 	private String nome;
 	private String email;
 	private String telefone;
 	private String crm;
-	
+	private boolean ativo;
+
 	@Enumerated(EnumType.STRING)
 	private Especialidade especialidade;
-	
+
 	@Embedded
 	private Endereco endereco;
-	
+
 	public Medico(DadosCadastroMedico dados) {
 		this.nome = dados.nome();
 		this.email = dados.email();
@@ -45,6 +46,7 @@ public class Medico {
 		this.crm = dados.crm();
 		this.especialidade = dados.especialidade();
 		this.endereco = new Endereco(dados.endereco());
+		this.ativo = true;
 	}
 
 	public Medico(@Valid DadosAtualizadosMedicos dados) {
@@ -52,14 +54,18 @@ public class Medico {
 	}
 
 	public void atualizarInformacoes(@Valid DadosAtualizadosMedicos dados) {
-		if(dados.nome() != null) {
+		if (dados.nome() != null) {
 			this.nome = dados.nome();
 		}
-		if(dados.telefone() != null) {
+		if (dados.telefone() != null) {
 			this.telefone = dados.telefone();
 		}
-		if(dados.endereco() != null) {
+		if (dados.endereco() != null) {
 			this.endereco.atualizarInformacoes(dados.endereco());
 		}
+	}
+
+	public void excluir() {
+		this.ativo = false;
 	}
 }
