@@ -28,6 +28,7 @@ public class Paciente {
 	private String email;
 	private String cpf;
 	private String telefone;
+	private boolean ativo;
 	
 	@Embedded
 	private Endereco endereco;
@@ -38,5 +39,7 @@ public class Paciente {
 		this.cpf = dados.cpf();
 		this.telefone = dados.telefone();
 		this.endereco = dados.endereco();
+		this.ativo = true;
 	}
+	
 }
