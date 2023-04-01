@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -38,8 +39,27 @@ public class Paciente {
 		this.email = dados.email();
 		this.cpf = dados.cpf();
 		this.telefone = dados.telefone();
-		this.endereco = dados.endereco();
+		this.endereco = new Endereco(dados.endereco());
 		this.ativo = true;
 	}
 	
+	public Paciente(@Valid DadosAtualizadosPacientes dados) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void atualizarInformacao(@Valid DadosAtualizadosPacientes dados) {
+		if(dados.nome() != null) {
+			this.nome = dados.nome();
+		}
+		if(dados.email() != null) {
+			this.email = dados.email();
+		}
+		if (dados.endereco() != null) {
+			this.endereco.atualizarInformacoes(dados.endereco());
+		}
+	}
+
+	public void excluir() {
+		this.ativo = false;
+	}
 }

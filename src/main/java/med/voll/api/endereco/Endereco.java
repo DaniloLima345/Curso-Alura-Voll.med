@@ -52,4 +52,8 @@ public class Endereco {
 			this.uf = dados.uf();
 		}
 	}
+
+	public Endereco(Endereco endereco) {
+		// TODO Auto-generated constructor stub
+	}
 }
